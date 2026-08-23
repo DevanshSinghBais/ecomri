@@ -1,33 +1,44 @@
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { ArrowDown, ArrowRight, Menu, ScanLine, X } from "lucide-react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
+const HERO_POSTER = "/manus-storage/ecomri-hero-poster_1bf44b67.png";
+const HERO_VIDEO = "/manus-storage/ecomri-hero-cinematic_058ad6cb.mp4";
+
+const steps = [
+  { number: "01", label: "Environment", heading: "See what the environment is telling us.", text: "EcoMRI transforms the signals moving through a living landscape into field-ready environmental intelligence." },
+  { number: "02", label: "Monitoring", heading: "A network of sensors, not a single reading.", text: "Bring conditions at every station into a shared spatial and temporal frame." },
+  { number: "03", label: "Patterns", heading: "Trace changes across the system.", text: "Connect parameter movement, downstream context, and the environmental relationships that matter." },
+  { number: "04", label: "Anomaly", heading: "Know what changed — and why it matters.", text: "Surface the strongest evidence and the next best action before an investigation loses time." },
+];
+
 export default function Home() {
-  // The useAuth hook provides authentication state.
-  // To implement login/logout, call logout(), or start login from an event
-  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
-  // startLogin() during render (no href={startLogin()}) — it mints a one-time
-  // nonce cookie and must run only at the moment of navigation.
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const [, setLocation] = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const treeX = useTransform(scrollYProgress, [0, 0.6], [0, -28]);
+  const copyY = useTransform(scrollYProgress, [0, 0.25], [0, -42]);
 
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 36);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
-  );
+  return <div className="overflow-x-hidden bg-[#f4f1ea] text-[#14181a]">
+    <header className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${scrolled ? "border-b border-white/10 bg-[#14181a]/90 backdrop-blur" : "bg-gradient-to-b from-black/45 to-transparent"}`}>
+      <div className="mx-auto flex h-20 max-w-[1500px] items-center justify-between px-5 md:px-9"><button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2 text-[#fbf9f4]"><span className="grid h-8 w-8 place-items-center border border-white/45"><ScanLine className="h-4 w-4" /></span><span><span className="block font-display text-xl leading-none">EcoMRI</span><span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.19em] text-white/65">Environmental intelligence</span></span></button><nav className="hidden items-center gap-8 text-xs font-bold text-white/85 md:flex"><a href="#environment" className="hover:text-white">Explore</a><a href="#monitoring" className="hover:text-white">Monitor</a><a href="#intelligence" className="hover:text-white">Intelligence</a><button onClick={() => setLocation("/workspace")} className="border border-white/65 px-4 py-2.5 text-[10px] uppercase tracking-[0.13em] transition hover:bg-white hover:text-[#14181a]">Open workspace</button></nav><button className="grid h-9 w-9 place-items-center border border-white/40 text-white md:hidden" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu className="h-4 w-4" /></button></div>
+    </header>
+    <AnimatePresence>{menuOpen && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#14181a] px-6 py-7 text-[#fbf9f4] md:hidden"><div className="flex items-center justify-between"><span className="font-display text-2xl">EcoMRI</span><button onClick={() => setMenuOpen(false)} aria-label="Close menu"><X className="h-5 w-5" /></button></div><nav className="mt-16 space-y-5 font-display text-4xl"><a onClick={() => setMenuOpen(false)} href="#environment" className="block">Explore</a><a onClick={() => setMenuOpen(false)} href="#monitoring" className="block">Monitor</a><a onClick={() => setMenuOpen(false)} href="#intelligence" className="block">Intelligence</a></nav><button onClick={() => setLocation("/workspace")} className="mt-16 border border-white/50 px-5 py-3 text-xs font-bold uppercase tracking-[0.13em]">Open workspace</button></motion.div>}</AnimatePresence>
+
+    <section id="environment" className="relative flex min-h-[760px] items-end overflow-hidden bg-[#14181a] px-5 pb-14 pt-28 text-[#fbf9f4] md:min-h-screen md:px-9 md:pb-20"><motion.div style={{ x: treeX }} className="absolute inset-0"><video className="h-full w-full object-cover" autoPlay muted loop playsInline poster={HERO_POSTER} aria-hidden="true"><source src={HERO_VIDEO} type="video/mp4" /></video><img src={HERO_POSTER} alt="" className="hidden h-full w-full object-cover" /></motion.div><div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/22 to-black/0" /><div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent" /><motion.div style={{ y: copyY }} className="relative mx-auto w-full max-w-[1500px]"><div className="max-w-3xl"><p className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#dce6da]"><span className="h-px w-9 bg-[#dce6da]/60" /> Environmental intelligence</p><h1 className="font-display text-[clamp(3.55rem,8vw,8.8rem)] leading-[0.86] tracking-[-0.065em]">See what the<br />environment is<br /><span className="text-[#d9e2d5]">telling us.</span></h1><p className="mt-7 max-w-md text-sm leading-6 text-white/80 md:text-base">Measure conditions, detect patterns, and equip field teams with evidence-led environmental insight.</p><div className="mt-8 flex flex-wrap gap-4"><button onClick={() => setLocation("/workspace")} className="group flex items-center gap-3 bg-[#f4f1ea] px-5 py-3.5 text-xs font-bold uppercase tracking-[0.13em] text-[#14181a] transition hover:bg-white">Enter the workspace <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></button><a href="#monitoring" className="flex items-center gap-3 px-2 py-3.5 text-xs font-bold uppercase tracking-[0.13em] text-white hover:underline">Watch the scan <ArrowDown className="h-4 w-4" /></a></div></div></motion.div><div className="absolute bottom-8 right-5 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.18em] text-white/70 md:right-9"><span className="h-8 w-px bg-white/50" /> Scroll to observe</div></section>
+
+    <section id="monitoring" className="relative border-b border-[#d8d2c6] bg-[#f4f1ea] px-5 py-24 md:px-9 md:py-40"><div className="mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[.8fr_1.2fr]"><div><p className="font-mono text-[10px] uppercase tracking-[0.19em] text-[#2e5c66]">The Environmental MRI</p><h2 className="mt-4 font-display text-5xl leading-[0.92] tracking-[-0.055em] md:text-7xl">From hidden signal to clear action.</h2></div><div className="grid gap-px bg-[#d8d2c6] sm:grid-cols-2">{steps.map((step, index) => <motion.article whileInView={{ y: [20, 0], opacity: [0, 1] }} viewport={{ once: true, amount: .25 }} transition={{ duration: .5, delay: index * .05 }} key={step.number} className="bg-[#f4f1ea] p-7 md:p-9"><div className="flex items-center justify-between"><span className="font-mono text-[10px] tracking-[0.17em] text-[#2e5c66]">{step.number}</span><span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#65706b]">{step.label}</span></div><h3 className="mt-16 max-w-xs font-display text-3xl leading-[0.98] tracking-[-0.04em]">{step.heading}</h3><p className="mt-5 max-w-sm text-sm leading-6 text-[#52605a]">{step.text}</p></motion.article>)}</div></div></section>
+
+    <section id="intelligence" className="bg-[#1e2427] px-5 py-24 text-[#fbf9f4] md:px-9 md:py-40"><div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[1fr_.85fr]"><div><p className="font-mono text-[10px] uppercase tracking-[0.19em] text-[#b7cbc0]">Evidence, not noise</p><h2 className="mt-4 max-w-3xl font-display text-5xl leading-[0.92] tracking-[-0.055em] md:text-7xl">Intelligence that stays grounded in the environment.</h2><p className="mt-8 max-w-lg text-base leading-7 text-[#c7d0c9]">EcoMRI connects signals from the monitoring network to the observations, relationships, and recommended action behind every investigation.</p><button onClick={() => setLocation("/workspace")} className="mt-9 flex items-center gap-3 border border-white/55 px-5 py-3.5 text-xs font-bold uppercase tracking-[0.13em] transition hover:bg-[#f4f1ea] hover:text-[#14181a]">Explore monitoring workspace <ArrowRight className="h-4 w-4" /></button></div><motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} className="self-end border border-white/15 bg-[#252d2f] p-6 md:p-8"><div className="flex items-center justify-between border-b border-white/12 pb-5"><span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#aac1b1]">Investigator brief</span><span className="border border-[#d99878]/50 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#f0b091]">High priority</span></div><p className="mt-6 font-display text-3xl leading-[1.02]">Why was North Reach flagged?</p><div className="mt-7 space-y-4 border-l border-[#698578] pl-5 text-sm leading-6 text-[#c7d0c9]"><p><strong className="font-semibold text-white">48 NTU turbidity</strong> is 4.1σ above its expected range.</p><p>Oxygen declined with the signal, and downstream readings show a correlated rise.</p></div><div className="mt-8 flex items-center gap-2 text-xs font-bold text-[#dce6da]"><span className="h-1.5 w-1.5 rounded-full bg-[#c1622b]" /> Inspect upstream outfall within 4 hours</div></motion.div></div></section>
+    <footer className="bg-[#14181a] px-5 py-8 text-[#c3cec4] md:px-9"><div className="mx-auto flex max-w-[1500px] flex-col justify-between gap-5 text-xs sm:flex-row"><span>EcoMRI · Environmental Intelligence</span><span className="font-mono text-[10px] uppercase tracking-[0.14em]">Built for evidence-led field decisions</span></div></footer>
+  </div>;
 }
