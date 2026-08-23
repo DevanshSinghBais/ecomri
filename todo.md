@@ -10,3 +10,4 @@
 - [x] Add polished loading, empty, and error states plus accessible responsive interactions across landing and workspace views.
 - [x] Add Vitest coverage for core data-derived risk and investigation logic, then run project validation.
 - [x] Capture desktop and mobile screenshots, refine visible issues, and save the completed project checkpoint.
+- [x] Write a maintainable README covering EcoMRI’s purpose, available product experiences, architecture, demo-data limitations, development workflow, and validation commands.
