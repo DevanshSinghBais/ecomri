@@ -25,6 +25,23 @@
        alt="EcoMRI Environmental Intelligence Platform"
        width="100%" />
 </p>
+<h2>🖥️ The Workspace</h2>
+
+<p align="center">
+  <img
+    src="./assets/ecomri-workspace.png"
+    alt="EcoMRI Environmental Intelligence Workspace"
+    width="100%"
+  />
+</p>
+
+<p align="center">
+  <i>
+    A connected view of stations, deviations, trends, and investigation priorities.
+  </i>
+</p>
+
+---
 ## 🧠 What is EcoMRI?
 
 EcoMRI is an **environmental intelligence prototype** designed to transform environmental monitoring observations into actionable investigations.
