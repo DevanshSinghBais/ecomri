@@ -1,86 +1,349 @@
-# EcoMRI
+# 🌱 EcoMRI
 
-> **Environmental Intelligence.** EcoMRI is a cinematic environmental-monitoring prototype that turns station observations into prioritized anomaly investigations, spatial context, and field-ready recommended action.
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00C6FF,100:0072FF&height=180&section=header&text=EcoMRI&fontSize=48&fontColor=ffffff&fontAlignY=35&desc=Environmental%20Intelligence%20Platform&descAlignY=55&descSize=18" width="100%" />
+</p>
 
-EcoMRI presents a complete product journey from a public, cinematic narrative to an explorable environmental workspace. It is designed to make the sequence **Observe → Measure → Detect → Understand → Act** immediately legible, while keeping the interface restrained, scientific, and accessible.
+<p align="center">
+  <strong>Observe → Measure → Detect → Understand → Act</strong>
+</p>
 
-## Product experience
+<p align="center">
+  A cinematic environmental intelligence platform that turns monitoring data into prioritized anomalies, spatial context, evidence, and recommended action.
+</p>
 
-The public landing page uses the supplied landscape poster and cinematic video as a full-bleed visual introduction. Its narrative explains the relationship between environment, monitoring, patterns, anomalies, and evidence-led action, then directs visitors to the workspace.
+<p align="center">
+  <a href="https://ecomri.vercel.app">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-0072FF?style=for-the-badge" />
+  </a>
+  <a href="https://github.com/DevanshSinghBais/ecomri">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
 
-The workspace is a responsive product prototype for the fictional Cedar Basin Observatory. It uses an application API and structured demo records to drive the summary metrics, prioritized anomaly feed, station table, trend charts, investigation detail, and interactive geospatial monitoring view.
+---
 
-| Area | What it provides |
-| --- | --- |
-| **Landing** | Cinematic video hero with poster fallback, editorial narrative, responsive navigation, and workspace entry point. |
-| **Overview** | Network status, priority investigations, environmental trend visualization, and immediate investigation order. |
-| **Monitoring** | A station table with status, pH, turbidity, and dissolved-oxygen readings. |
-| **Geospatial** | A Google Maps monitoring layer with status-coded stations and severity-context halos. |
-| **Trends** | A baseline comparison and concise multi-parameter change summary. |
-| **Investigator** | Evidence-led anomaly explanation, observation context, confidence, and a recommended field action. |
+## 🧠 What is EcoMRI?
 
-## Important demo-data notice
+EcoMRI is an **environmental intelligence prototype** designed to transform environmental monitoring observations into actionable investigations.
 
-All environmental values, locations, anomalies, confidence scores, and recommendations in this project are **simulated demo data**. They are designed to provide credible product interactions and must not be interpreted as live environmental conditions, regulatory findings, or field advice.
+Instead of simply displaying raw measurements, EcoMRI creates a workflow:
 
-The current scenario models a turbidity event at station `ECR-14` and associated downstream observations. The interface always presents the data as simulated, including the workspace timestamp badge.
+```text
+Environmental Observations
+          ↓
+      Monitoring
+          ↓
+    Anomaly Detection
+          ↓
+    Spatial Context
+          ↓
+   Evidence & Confidence
+          ↓
+   Recommended Action
+```
 
-## Architecture
+The goal is to make environmental data easier to **observe, understand, investigate, and act upon**.
 
-The application is a React and TypeScript web project with a typed tRPC API running on Express. The environmental domain data is intentionally contained in a small server-side demo-data module, with public API procedures supplying the workspace. This keeps the UI tied to structured records rather than hard-coded presentation strings.
+> ⚠️ **Demo Data:** All environmental values, locations, anomalies, confidence scores, and recommendations are simulated demo data. They do not represent live environmental conditions, regulatory findings, or field advice.
 
-| Layer | Primary responsibility | Key locations |
-| --- | --- | --- |
-| **Client** | Landing page, workspace views, responsive interaction, charts, and map rendering. | `client/src/pages/`, `client/src/components/` |
-| **API** | Typed access to the overview and station-investigation payloads. | `server/routers/environmental.ts` |
-| **Demo domain** | Simulated stations, anomalies, evidence, action guidance, and trend records. | `server/environmental.demo.ts` |
-| **Maps** | Google Maps JavaScript integration through the project-provided proxy component. | `client/src/components/Map.tsx`, `client/src/components/EnvironmentalMap.tsx` |
-| **Static media** | The supplied hero image and video are stored as managed project assets and referenced by their storage paths. | `Home.tsx` |
+---
 
-## Local development
+## ✨ Features
 
-Install dependencies with `pnpm install`, then launch the development server with `pnpm dev`. The managed development environment provides the expected environment configuration for authentication, database, storage, and maps integrations.
+### 🌍 Environmental Overview
+
+- Network monitoring status
+- Priority investigations
+- Environmental trend visualization
+- Investigation prioritization
+- Structured monitoring records
+
+### 🚨 Anomaly Investigation
+
+- Prioritized anomaly feed
+- Evidence-backed explanations
+- Observation context
+- Confidence scoring
+- Recommended field actions
+- Investigation workflow
+
+### 📡 Station Monitoring
+
+Environmental stations provide structured observations including:
+
+- pH
+- Turbidity
+- Dissolved oxygen
+- Station status
+- Observation timestamps
+
+### 🗺️ Geospatial Monitoring
+
+Interactive environmental monitoring map with:
+
+- Station locations
+- Status indicators
+- Severity context
+- Spatial investigation
+
+### 📈 Environmental Trends
+
+- Baseline comparisons
+- Multi-parameter trends
+- Change summaries
+- Historical investigation context
+
+### 🎬 Cinematic Product Experience
+
+EcoMRI isn't designed as a traditional dashboard.
+
+The experience starts with a cinematic landing page and transitions into an interactive environmental intelligence workspace.
+
+---
+
+## 🏗️ Architecture
+
+```text
+┌─────────────────────────────────────────────┐
+│                 EcoMRI UI                   │
+│                                             │
+│  Landing Page • Dashboard • Monitoring      │
+│  Trends • Maps • Investigation              │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│              tRPC API / Express             │
+│                                             │
+│  Typed environmental data procedures        │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│          Environmental Domain Layer         │
+│                                             │
+│  Stations • Observations • Anomalies        │
+│  Evidence • Trends • Recommendations        │
+└─────────────────────────────────────────────┘
+```
+
+### Project Structure
+
+```text
+ecomri/
+├── client/
+│   └── src/
+│       ├── components/
+│       └── pages/
+│
+├── server/
+│   ├── routers/
+│   │   └── environmental.ts
+│   └── environmental.demo.ts
+│
+├── shared/
+├── drizzle/
+├── patches/
+├── package.json
+├── drizzle.config.ts
+├── vite.config.ts
+└── tsconfig.json
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
+- Responsive UI
+- Data visualization
+- Google Maps integration
+
+### Backend
+
+- Node.js
+- Express
+- tRPC
+- TypeScript
+
+### Data & Infrastructure
+
+- Drizzle
+- Structured environmental domain models
+- Typed API contracts
+
+### Testing & Quality
+
+- Vitest
+- TypeScript
+- Prettier
+
+---
+
+## 🚀 Local Development
+
+### 1. Clone
+
+```bash
+git clone https://github.com/DevanshSinghBais/ecomri.git
+cd ecomri
+```
+
+### 2. Install dependencies
 
 ```bash
 pnpm install
+```
+
+### 3. Start development server
+
+```bash
 pnpm dev
 ```
 
-Use the following commands before committing or publishing changes:
+The application should then be available through your local development server.
+
+---
+
+## 🧪 Development Commands
+
+Run tests:
 
 ```bash
-# Run all unit tests
 pnpm test
+```
 
-# Check TypeScript types without emitting build output
+Check TypeScript:
+
+```bash
 pnpm check
+```
 
-# Create a production build
+Create production build:
+
+```bash
 pnpm build
 ```
 
-## Routes
+---
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Public EcoMRI landing page. |
-| `/workspace` | Interactive monitoring and investigation workspace. |
+## 🧭 Routes
 
-## Extending the prototype
+| Route | Description |
+|---|---|
+| `/` | Public EcoMRI landing page |
+| `/workspace` | Environmental monitoring workspace |
 
-To move from simulated experience to a production monitoring product, replace the demo module with persistent station and observation tables, import validated field data, and apply anomaly logic to historical time series. The existing tRPC contract provides a compact boundary for that change.
+---
 
-Recommended next extensions include user roles for field operators and reviewers, report export, persistent investigation notes, configurable alert thresholds, and audit-ready data provenance.
+## 🔬 Current Demo Scenario
 
-## Validation
-
-The project includes Vitest coverage for the environmental demo payload and station-investigation relationships. The completed version was also checked with TypeScript and reviewed at desktop and mobile breakpoints.
+The current prototype models a simulated environmental event involving station:
 
 ```text
-Vitest: 2 test files passing / 3 tests passing
-TypeScript: pnpm check passing
+ECR-14
 ```
 
-## License
+The scenario demonstrates how an environmental observation can move through:
 
-This project is provided as an EcoMRI product prototype. Confirm ownership and licensing for supplied media and any live environmental data sources before public reuse.
+```text
+Observation
+   ↓
+Anomaly
+   ↓
+Evidence
+   ↓
+Confidence
+   ↓
+Investigation
+   ↓
+Recommended Action
+```
+
+All values in this scenario are **simulated**.
+
+---
+
+## 🔮 Future Roadmap
+
+### Phase 1 — Intelligence
+
+- [ ] Real environmental datasets
+- [ ] Historical time-series analysis
+- [ ] Automated anomaly detection
+- [ ] Configurable alert thresholds
+- [ ] ML-based environmental forecasting
+
+### Phase 2 — Operations
+
+- [ ] Field operator accounts
+- [ ] Investigation notes
+- [ ] Report generation
+- [ ] Alert management
+- [ ] Audit-ready data provenance
+
+### Phase 3 — Scale
+
+- [ ] Persistent environmental database
+- [ ] Streaming sensor ingestion
+- [ ] Real-time monitoring
+- [ ] Advanced geospatial analytics
+- [ ] Production ML inference pipeline
+
+---
+
+## ⚠️ Important Disclaimer
+
+EcoMRI is currently a **product prototype using simulated environmental data**.
+
+The information displayed by the application should not be interpreted as:
+
+- Live environmental monitoring
+- Regulatory findings
+- Scientific measurements
+- Emergency information
+- Professional environmental advice
+
+---
+
+## 🌐 Live Demo
+
+Try the application:
+
+<p align="center">
+  <a href="https://ecomri.vercel.app">
+    <img src="https://img.shields.io/badge/OPEN%20ECOMRI-00C6FF?style=for-the-badge&logo=vercel&logoColor=white" />
+  </a>
+</p>
+
+---
+
+## 👨‍💻 Author
+
+**Devansh Singh Bais**
+
+AI/ML • LLMs • Computer Vision • Backend • AI Engineering
+
+<p align="center">
+  <a href="https://github.com/DevanshSinghBais">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/devansh-singh-bais-748b192b5/">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</p>
+
+---
+
+<p align="center">
+  <i>Turning environmental data into intelligence.</i>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0072FF,100:00C6FF&height=100&section=footer" width="100%" />
+</p>
