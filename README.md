@@ -1,5 +1,3 @@
-# 🌱 EcoMRI
-
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00C6FF,100:0072FF&height=180&section=header&text=EcoMRI&fontSize=48&fontColor=ffffff&fontAlignY=35&desc=Environmental%20Intelligence%20Platform&descAlignY=55&descSize=18" width="100%" />
 </p>
@@ -13,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ecomri.vercel.app">
+  <a href="https://ecomri-gsy3klvs.manus.space">
     <img src="https://img.shields.io/badge/🌐%20Live%20Demo-0072FF?style=for-the-badge" />
   </a>
   <a href="https://github.com/DevanshSinghBais/ecomri">
@@ -313,11 +311,9 @@ The information displayed by the application should not be interpreted as:
 
 ## 🌐 Live Demo
 
-Try the application:
-
 <p align="center">
-  <a href="https://ecomri.vercel.app">
-    <img src="https://img.shields.io/badge/OPEN%20ECOMRI-00C6FF?style=for-the-badge&logo=vercel&logoColor=white" />
+  <a href="https://ecomri-gsy3klvs.manus.space">
+    <img src="https://img.shields.io/badge/OPEN%20ECOMRI-00C6FF?style=for-the-badge&logo=googlechrome&logoColor=white" />
   </a>
 </p>
 
