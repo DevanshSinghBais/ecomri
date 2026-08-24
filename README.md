@@ -20,7 +20,11 @@
 </p>
 
 ---
-
+<p align="center">
+  <img src="./assets/ecomri-hero.png"
+       alt="EcoMRI Environmental Intelligence Platform"
+       width="100%" />
+</p>
 ## 🧠 What is EcoMRI?
 
 EcoMRI is an **environmental intelligence prototype** designed to transform environmental monitoring observations into actionable investigations.
